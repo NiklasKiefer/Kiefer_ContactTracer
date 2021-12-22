@@ -1,0 +1,9 @@
+{
+    "databaseName": "contacttracerdb",
+    "databaseServer": "localhost",
+    "databasePort": 28015,
+    "databaseTables": [
+        "admins",
+        "checkins"
+    ]
+}
