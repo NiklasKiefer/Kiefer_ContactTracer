@@ -4,6 +4,7 @@ import { interfaces, TYPE } from 'inversify-express-utils';
 import { LoggerService } from '../services/logger.service';
 import { DatabaseService } from '../services/database.service';
 import { CheckInController } from '../../api/events/checkin.controller';
+import { AdminsController } from '../../api/events/admin.controller';
 
 export class IoContainer {
   private container = new Container();
@@ -21,6 +22,10 @@ export class IoContainer {
     this.container.bind<interfaces.Controller>(TYPE.Controller)
     .to(CheckInController)
     .whenTargetNamed(CheckInController.name);
+
+    this.container.bind<interfaces.Controller>(TYPE.Controller)
+    .to(AdminsController)
+    .whenTargetNamed(AdminsController.name);
   }
 
   private initServices(): void {

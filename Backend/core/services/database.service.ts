@@ -3,6 +3,8 @@ import { LoggerService } from "./logger.service";
 import { Connection, r, RConnectionOptions, RDatum } from 'rethinkdb-ts';
 import * as databaseConfiguration from '../../configuration/db-config.json';
 import { CheckIn } from "../../models/checkin.model";
+import { Admin } from "../../models/admin.model";
+import { AdminsController } from "../../api/events/admin.controller";
 
 
 @injectable()
@@ -39,6 +41,7 @@ export class DatabaseService{
     }
 
     public getAllCheckIns(): Promise<Array<CheckIn>>{
+        this.loggerService.info("Starting to return all checkins.");
         return new Promise((resolve, reject) =>{
             this.connect().then((connection: Connection) =>{
                 r.db(databaseConfiguration.databaseName)
@@ -50,6 +53,62 @@ export class DatabaseService{
                 }).catch((error) =>{
                     this.loggerService.error(error, "Error while retrieving checkins.");
                 });
+            });
+        });
+    }
+
+    public registerAdmin(username: string, password: string): Promise<any>{
+        this.loggerService.info("Starting to register new admin with username " + username + " and password " + password);
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table('admins')
+                 .filter({username: username})
+                 .isEmpty()
+                 .do((empty)=> r.branch(
+                     empty,
+                     r.db(databaseConfiguration.databaseName).table('admins').insert({
+                         username: username,
+                         password: password
+                     }),
+                     {exists: true}
+                 )).run(connection)
+                 .then((response) =>{
+                     this.loggerService.info("Responding to client after new registration.");
+                     //Returns false if data already exists.
+                     if("exists" in response){
+                         resolve({created: false});
+                     }
+                     //Returns true if data has not existed until now.
+                     else{
+                         resolve({created: true});
+                     }
+                 }).catch((error) => { 
+                     this.loggerService.error(error, "Error while saving new admin account.");
+                     reject(error);
+                 });
+            });
+        });
+    }
+
+    public loginAdmin(username: string, password: string): Promise<any>{
+        this.loggerService.info("Trying to login user");
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table("admins")
+                 .filter({username: username, password: password})
+                 .count()
+                 .eq(1)
+                 .do((exists) => r.branch(
+                     exists,
+                     {Login: true},
+                     {Login: false}
+                 )).run(connection)
+                 .then((response) =>{
+                    this.loggerService.info("Responding login status to client.");
+                    resolve(response);
+                 })
             });
         });
     }
