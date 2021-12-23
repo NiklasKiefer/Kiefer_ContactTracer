@@ -40,18 +40,50 @@ export class DatabaseService{
         });
     }
 
-    public getAllCheckIns(): Promise<Array<CheckIn>>{
-        this.loggerService.info("Starting to return all checkins.");
+    public checkIn(firstname: string, secondname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string): Promise<any>{
+        this.loggerService.info("Saving new checkin: " + firstname + " " + secondname + " " + company + " " + phonenumber + " " + email + " " + street + " " + postalcode + " " + city);
         return new Promise((resolve, reject) =>{
             this.connect().then((connection: Connection) =>{
                 r.db(databaseConfiguration.databaseName)
-                .table('checkins')
-                .filter({})
-                .run(connection)
-                .then((response: Array<CheckIn>) =>{
-                    resolve(response);
-                }).catch((error) =>{
-                    this.loggerService.error(error, "Error while retrieving checkins.");
+                 .table('checkins')
+                 .filter(
+                     {
+                         firstname: firstname, 
+                         secondname: secondname,
+                         company: company,
+                         phonenumber: phonenumber,
+                         email: email,
+                         street: street,
+                         postalcode: postalcode,
+                         city: city
+                     })
+                  .isEmpty()
+                  .do((empty) => r.branch(
+                      empty,
+                      r.db(databaseConfiguration.databaseName).table('checkins').insert({
+                        firstname: firstname, 
+                        secondname: secondname,
+                        company: company,
+                        phonenumber: phonenumber,
+                        email: email,
+                        street: street,
+                        postalcode: postalcode,
+                        city: city
+                      }),
+                      {alreadyExists: true}
+                  )).run(connection)
+                  .then((response) =>{
+                    this.loggerService.info("Responding to client after attempted checkin.");
+                    if ("alreadyExists" in response){
+                        resolve(response);
+                    }
+                    else{
+                        let id = response.generated_keys;
+                        resolve({"id": id});
+                    }
+                  }).catch((error) => { 
+                    this.loggerService.error(error, "Error while saving new checkin.");
+                    reject(error);
                 });
             });
         });

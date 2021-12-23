@@ -1,10 +1,11 @@
 export interface CheckIn{
-    qrcode: File,
-    id: string,
     firstname: string,
     lastname: string,
     company: string,
-    plz: string,
+    phonenumber: string,
+    email: string,
     street: string,
-    city: string
+    postalcode: string,
+    city: string,
+    time: Date
 }

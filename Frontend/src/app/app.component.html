@@ -1,3 +1,12 @@
-<div class="header">
-  <h1>Contact Tracer</h1>
+<div class="app">
+  <header>
+    <mat-toolbar color="primary" id="toolbar">
+      <span routerLink="/">Contact Tracer by Niklas Kiefer</span>
+      <span class="spacer"></span>
+      <button mat-raised-button color="basic" routerLink="/login">Login</button>
+    </mat-toolbar>
+  </header>
+  <main class="container">
+    <router-outlet></router-outlet>
+  </main>
 </div>
