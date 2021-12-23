@@ -1,1 +1,31 @@
-<p>register works!</p>
+<div class="form">
+    <p class="mat-headline">Enter your information to register.</p>
+    <div id="userdata">
+        <mat-form-field color="primary" appearance="fill">
+            <mat-label>First name</mat-label>
+            <input matInput color="accent" required>
+        </mat-form-field>
+        <span></span>
+        <mat-form-field color="primary" appearance="fill">
+            <mat-label>Second name</mat-label>
+            <input matInput type="password" color="accent" required>
+        </mat-form-field>
+    </div>
+    <div id="account">
+        <mat-form-field color="primary" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput color="accent" required>
+        </mat-form-field>
+        <mat-form-field color="primary" appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" color="accent" required>
+        </mat-form-field>
+    </div>
+    <div id="password">
+        <mat-form-field color="primary" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" color="accent" required>
+        </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary">Register</button>
+</div>
