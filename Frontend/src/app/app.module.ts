@@ -15,6 +15,10 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { RegisterComponent } from './components/register/register.component'
+import { HttpClientModule } from '@angular/common/http';
+import { CheckininfoComponent } from './components/checkininfo/checkininfo.component';
+import { FormsModule } from '@angular/forms';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { RegisterComponent } from './components/register/register.component'
     LoginComponent,
     NotfoundComponent,
     CheckoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    CheckininfoComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,10 @@ import { RegisterComponent } from './components/register/register.component'
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule,
+    FormsModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

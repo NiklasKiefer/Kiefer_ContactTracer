@@ -1,0 +1,8 @@
+<div id="qrcode-display">
+    <p class="mat-display-1">You were successfully checked-in.</p>
+    <qrcode [qrdata]="id" [width]="200" [allowEmptyString]="true" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
+    <div class="mat-h3">Your id is: <p [innerText]="id"></p></div>
+    <div id="checkoutdiv">
+        <a id="checkouttext" class="mat-h4" color="primary" routerLink="/checkout"><br>You can check-out here.</a>
+    </div> 
+</div>

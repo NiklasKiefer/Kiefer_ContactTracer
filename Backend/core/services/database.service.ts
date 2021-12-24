@@ -68,7 +68,8 @@ export class DatabaseService{
                         email: email,
                         street: street,
                         postalcode: postalcode,
-                        city: city
+                        city: city,
+                        time: Date.now()
                       }),
                       {alreadyExists: true}
                   )).run(connection)

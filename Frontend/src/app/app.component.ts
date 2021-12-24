@@ -8,7 +8,7 @@ import { LoggerService } from './services/logger/logger.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'Frontend';
+  title = 'Contact Tracer';
 
   constructor(protected loggerService: LoggerService){
     this.loggerService.log('APP Component Init');

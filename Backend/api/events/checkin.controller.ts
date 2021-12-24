@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { controller, httpGet, httpPost, interfaces } from "inversify-express-utils";
 import { DatabaseService } from "../../core/services/database.service";
 import {Request, Response } from "express";
+import { LoggerService } from "../../core/services/logger.service";
 
 
 @controller('/checkin')
@@ -19,7 +20,7 @@ export class CheckInController implements interfaces.Controller{
         let phonenumber = request.params.phonenumber;
         let email = request.params.email;
         let street = request.params.street;
-        let postalcode = request.params.postalcode;
+        let postalcode = request.params.postalcode ;
         let city = request.params.city;
         this.databaseService.checkIn(firstname, secondname, company, phonenumber, email, street, postalcode, city).then((result) =>{
 

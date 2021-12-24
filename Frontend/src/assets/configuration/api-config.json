@@ -1,0 +1,5 @@
+{
+    "getcheckin": "http://localhost:9999/checkin/",
+    "getlogin": "http://localhost:9999/admins/login/",
+    "putregister": "http://localhost:9999/admins/register/"
+}
