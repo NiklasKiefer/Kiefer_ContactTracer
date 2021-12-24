@@ -34,10 +34,9 @@ export class CheckinComponent implements OnInit {
       company = " ";
     }
 
-    const puturl = apiConfiguration.getcheckin + firstname + "&" + lastname + "&" + company + "&" + phonenumber + "&" + email + "&" + street + "&" + postalcode + "&" + city; 
-    console.log(puturl);
+    const posturl = apiConfiguration.postcheckin + firstname + "&" + lastname + "&" + company + "&" + phonenumber + "&" + email + "&" + street + "&" + postalcode + "&" + city; 
     this.HttpClient
-        .post<any>(puturl, params)
+        .post<any>(posturl, params)
         .subscribe({
           next: (response: any) =>{
             if("alreadyExists" in response){

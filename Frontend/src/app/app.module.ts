@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CheckininfoComponent } from './components/checkininfo/checkininfo.component';
 import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AdminentriesComponent } from './components/adminentries/adminentries.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     NotfoundComponent,
     CheckoutComponent,
     RegisterComponent,
-    CheckininfoComponent
+    CheckininfoComponent,
+    AdminentriesComponent
   ],
   imports: [
     BrowserModule,

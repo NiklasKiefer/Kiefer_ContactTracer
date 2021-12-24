@@ -20,9 +20,9 @@ export class RegisterComponent implements OnInit {
   public errormsg = "";
 
   public registerAdmin(firstname: string, lastname: string, username: string, email: string, password: string): void{
-    var puturl = apiConfiguration.putregister + firstname + "&" + lastname + "&" + username + "&" + email + "&" + password;
+    var posturl = apiConfiguration.postregister + firstname + "&" + lastname + "&" + username + "&" + email + "&" + password;
     this.HttpClient
-    .post<any>(puturl, {})
+    .post<any>(posturl, {})
     .subscribe({
       next: (response: any) =>{
         if("created" in response){

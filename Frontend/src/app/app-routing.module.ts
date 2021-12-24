@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminentriesComponent } from './components/adminentries/adminentries.component';
 import { CheckinComponent } from './components/checkin/checkin.component';
 import { CheckininfoComponent } from './components/checkininfo/checkininfo.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'checkout', component: CheckoutComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'checkininfo', component: CheckininfoComponent},
+  {path: 'adminentries', component: AdminentriesComponent},
   {path: '**', component: NotfoundComponent}
 ];
 
