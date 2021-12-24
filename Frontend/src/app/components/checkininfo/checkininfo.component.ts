@@ -11,7 +11,7 @@ export class CheckininfoComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  public id = "";
+  public id = " ";
 
   ngOnInit(): void {  
     this.id = history.state.id;

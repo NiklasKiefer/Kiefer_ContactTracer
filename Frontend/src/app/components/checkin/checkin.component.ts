@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { LoggerService } from '../../services/logger/logger.service';
 import apiConfiguration from '../../../assets/configuration/api-config.json';
-import { LoginComponent } from '../login/login.component';
 import { Router} from '@angular/router'
 
 @Component({

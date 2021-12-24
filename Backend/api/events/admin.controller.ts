@@ -12,9 +12,9 @@ export class AdminsController implements interfaces.Controller{
 
     }
 
-    @httpPost('/register/:username&:password')
+    @httpPost('/register/:firstname&:lastname&:email&:username&:password')
     public registerAdmin(request: Request, response: Response): void{
-        this.databaseService.registerAdmin(request.params.username, request.params.password).then((result) =>{    
+        this.databaseService.registerAdmin(request.params.firstname, request.params.lastname, request.params.email, request.params.username, request.params.password).then((result) =>{    
             this.loggerService.info("Sending result from database service to client.");
             response.json(result);
         })

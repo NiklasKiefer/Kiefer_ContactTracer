@@ -90,7 +90,7 @@ export class DatabaseService{
         });
     }
 
-    public registerAdmin(username: string, password: string): Promise<any>{
+    public registerAdmin(firstname: string, lastname: string,  username: string, email: string, password: string): Promise<any>{
         this.loggerService.info("Starting to register new admin with username " + username + " and password " + password);
         return new Promise((resolve, reject) =>{
             this.connect().then((connection: Connection) =>{
@@ -101,16 +101,19 @@ export class DatabaseService{
                  .do((empty)=> r.branch(
                      empty,
                      r.db(databaseConfiguration.databaseName).table('admins').insert({
+                         firstname: firstname,
+                         lastname: lastname,
+                         email: email,
                          username: username,
                          password: password
                      }),
-                     {exists: true}
+                     {alreadyExists: true}
                  )).run(connection)
                  .then((response) =>{
                      this.loggerService.info("Responding to client after new registration.");
                      //Returns false if data already exists.
-                     if("exists" in response){
-                         resolve({created: false});
+                     if("alreadyExists" in response){
+                         resolve(response);
                      }
                      //Returns true if data has not existed until now.
                      else{
