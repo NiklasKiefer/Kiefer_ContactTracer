@@ -15,6 +15,9 @@ export class CheckininfoComponent implements OnInit {
 
   ngOnInit(): void {  
     this.id = history.state.id;
-    console.log(this.id);
+    
+    if (this.id == undefined){
+      this.router.navigateByUrl('/');
+    }
   }
 }
