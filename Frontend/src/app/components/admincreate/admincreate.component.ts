@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admincreate',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdmincreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  private username = "";
+  private password = "";
 
   ngOnInit(): void {
+    this.username = history.state.username;
+    this.password = history.state.password;
+
+    if(this.username == undefined && this.password == undefined){
+      this.router.navigateByUrl('login');
+    }
   }
 
 }

@@ -20,7 +20,6 @@ export class AdminentriesComponent implements OnInit {
   constructor(private LoggerService: LoggerService, private router: Router, private HttpClient: HttpClient) { }
 
   ngOnInit(): void {
-    console.log(new Date(1640451056375));
     this.username = history.state.username;
     this.password = history.state.password;
 
@@ -52,6 +51,10 @@ export class AdminentriesComponent implements OnInit {
 
   public numberToDate(date: number): string{
     return new Date(date).toLocaleString();
+  }
+
+  public addButtonClicked(): void{
+    this.router.navigateByUrl('admincreate', {state: {"username": this.username, "password": this.password}});
   }
 
 }

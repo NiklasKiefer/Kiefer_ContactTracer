@@ -1,3 +1,6 @@
+<button id="addbutton" mat-raised-button color="primary" (click)="addButtonClicked()">Add new Entry</button>
+
+<div id="table">
 <table mat-table [dataSource]="checkIns" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID</th>
@@ -51,4 +54,5 @@
 
     <tr mat-header-row *matHeaderRowDef="properties"></tr>
     <tr mat-row *matRowDef="let row; columns: properties;"></tr>
-</table>
+</table>  
+</div> 
