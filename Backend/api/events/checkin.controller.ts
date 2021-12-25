@@ -25,6 +25,15 @@ export class CheckInController implements interfaces.Controller{
         this.databaseService.checkIn(firstname, secondname, company, phonenumber, email, street, postalcode, city).then((result) =>{
 
             response.json(result);
-        })
+        });
+    }
+
+    @httpGet('/:username&:password')
+    public getAllCheckIns(request: Request, response: Response): void{
+        let username = request.params.username;
+        let password = request.params.password;
+        this.databaseService.getAllCheckIns(username, password).then((result) =>{
+            response.json(result);
+        });
     }
 }

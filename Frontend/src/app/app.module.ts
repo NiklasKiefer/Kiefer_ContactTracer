@@ -20,6 +20,7 @@ import { CheckininfoComponent } from './components/checkininfo/checkininfo.compo
 import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AdminentriesComponent } from './components/adminentries/adminentries.component';
+import { AdmincreateComponent } from './components/admincreate/admincreate.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AdminentriesComponent } from './components/adminentries/adminentries.co
     CheckoutComponent,
     RegisterComponent,
     CheckininfoComponent,
-    AdminentriesComponent
+    AdminentriesComponent,
+    AdmincreateComponent
   ],
   imports: [
     BrowserModule,

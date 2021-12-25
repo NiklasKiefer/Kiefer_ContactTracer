@@ -40,6 +40,37 @@ export class DatabaseService{
         });
     }
 
+    public getAllCheckIns(username: string, password: string): Promise<Array<CheckIn>>{
+        this.loggerService.info("User " + username + " requests to get the list of all current check-ins entries.");
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) => {
+                r.db(databaseConfiguration.databaseName)
+                 .table('admins')
+                 .filter(
+                     {
+                        username: username,
+                        password: password
+                     })
+                 .count()
+                 .eq(1)
+                 .do((exists) => r.branch(
+                    exists,
+                    r.db(databaseConfiguration.databaseName)
+                     .table('checkins')
+                     .filter({}),
+                     { "validUser": false }
+                 )).run(connection)
+                 .then((response: Array<CheckIn>) =>{
+                    this.loggerService.info("Answering request by user " + username + " and sending all checkin entries.");
+                    resolve(response);
+                 })
+                 .catch((error) =>{
+                     this.loggerService.error(error, "Error while getting all check-in entries for user " + username + ".");
+                 })
+            })
+        });
+    }
+
     public checkIn(firstname: string, secondname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string): Promise<any>{
         this.loggerService.info("Saving new checkin: " + firstname + " " + secondname + " " + company + " " + phonenumber + " " + email + " " + street + " " + postalcode + " " + city);
         return new Promise((resolve, reject) =>{
