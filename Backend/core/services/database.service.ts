@@ -158,6 +158,58 @@ export class DatabaseService{
         });
     }
 
+    /*
+    public addCheckInAdmin(username: string, password: string, firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string, time: number): Promise<any>{
+        this.loggerService.info("User " + username + " wants to add new check-in information");
+        return new Promise((resolve, reject) => {
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table("admins")
+                 .filter({username: username, password: password})
+                 .count()
+                 .eq(1)
+                 .do((adminExists) => r.branch(
+                    adminExists,
+                    r.db(databaseConfiguration.databaseName)
+                     .table("checkin")
+                     .filter({firstname: firstname, 
+                              lastname: lastname,
+                              company: company,
+                              phonenumber: phonenumber,
+                              email: email,
+                              street: street,
+                              postalcode: postalcode,
+                              city: city})
+                     .isEmpty()
+                     .do((checkinExists) =>{
+                         r.db(databaseConfiguration.databaseName)
+                          .table("checkin")
+                          .insert({
+                              firstname: firstname,
+                              lastname: lastname,
+                              company: company,
+                              phonenumber: phonenumber,
+                              email: email,
+                              street: street,
+                              postalcode: postalcode,
+                              city: city,
+                              time: time
+                          })
+                     }),
+                    {validUser: false}
+                 )).run(connection)
+                 .then((response) =>{
+                     this.loggerService.info("Responding to admin after creating new entry.");
+                     resolve(response);
+                 })
+                 .catch((error) =>{
+                     this.loggerService.error(error, "Error while creating new entry for admin " + username)
+                 })
+            })
+        })
+    }
+    */
+
     public loginAdmin(username: string, password: string): Promise<any>{
         this.loggerService.info("Trying to login user");
         return new Promise((resolve, reject) =>{
