@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggerService } from 'src/app/services/logger/logger.service';
+import { CheckIn } from 'src/assets/models/checkin.model';
+import apiConfiguration from 'src/assets/configuration/api-config.json'
 
 @Component({
   selector: 'app-adminentries',
@@ -9,20 +12,46 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 })
 export class AdminentriesComponent implements OnInit {
 
-  constructor(private LoggerService: LoggerService, private router: Router) { }
-
   private username = "";
   private password = "";
+  public checkIns: Array<CheckIn> = new Array<CheckIn>();
+  public properties: string[] = ["id", "firstname", "lastname", "company", "phonenumber", "email", "street", "postalcode", "city", "time"];
+
+  constructor(private LoggerService: LoggerService, private router: Router, private HttpClient: HttpClient) { }
 
   ngOnInit(): void {
+    console.log(new Date(1640451056375));
     this.username = history.state.username;
     this.password = history.state.password;
 
     if(this.username == undefined && this.password == undefined){
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('login');
     }
+    else{
+      const geturl = apiConfiguration.checkin + this.username +  "&" + this.password;
+      this.HttpClient
+      .get<Array<CheckIn>>(geturl, {})
+      .subscribe({
+        next: (response: any) =>{
+          if ("validUser" in response){
+            if (response.validUser == false){
+              this.router.navigateByUrl('login');
+            }
+          }
+          else{
+            this.checkIns = response;
 
-    this.LoggerService.log(this.username + " " + this.password);
+            console.log(this.checkIns);
+          }
+        },
+        error: (error) => this.LoggerService.log("Error while http get to api-checkin."),
+        complete: () => this.LoggerService.log("complete")
+      });
+    }
+  }
+
+  public numberToDate(date: number): string{
+    return new Date(date).toLocaleString();
   }
 
 }

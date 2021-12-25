@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   public errormsg = " ";
 
   public loginAdmin(username: string, password: string): void{
-    var geturl = apiConfiguration.getlogin + username + "&" + password;
+    var geturl = apiConfiguration.login + username + "&" + password;
     this.HttpClient
     .get<any>(geturl, {})
     .subscribe({

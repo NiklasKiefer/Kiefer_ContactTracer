@@ -1,5 +1,5 @@
 {
-    "postcheckin": "http://localhost:9999/checkin/",
-    "getlogin": "http://localhost:9999/admins/login/",
-    "postregister": "http://localhost:9999/admins/register/"
+    "checkin": "http://localhost:9999/checkin/",
+    "login": "http://localhost:9999/admins/login/",
+    "register": "http://localhost:9999/admins/register/"
 }

@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AdminentriesComponent } from './components/adminentries/adminentries.component';
 import { AdmincreateComponent } from './components/admincreate/admincreate.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AdmincreateComponent } from './components/admincreate/admincreate.compo
     MatInputModule,
     HttpClientModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

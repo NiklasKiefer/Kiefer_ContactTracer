@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   public errormsg = "";
 
   public registerAdmin(firstname: string, lastname: string, username: string, email: string, password: string): void{
-    var posturl = apiConfiguration.postregister + firstname + "&" + lastname + "&" + username + "&" + email + "&" + password;
+    var posturl = apiConfiguration.register + firstname + "&" + lastname + "&" + username + "&" + email + "&" + password;
     this.HttpClient
     .post<any>(posturl, {})
     .subscribe({

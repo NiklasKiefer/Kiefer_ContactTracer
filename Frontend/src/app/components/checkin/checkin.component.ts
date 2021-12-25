@@ -34,7 +34,7 @@ export class CheckinComponent implements OnInit {
       company = " ";
     }
 
-    const posturl = apiConfiguration.postcheckin + firstname + "&" + lastname + "&" + company + "&" + phonenumber + "&" + email + "&" + street + "&" + postalcode + "&" + city; 
+    const posturl = apiConfiguration.checkin + firstname + "&" + lastname + "&" + company + "&" + phonenumber + "&" + email + "&" + street + "&" + postalcode + "&" + city; 
     this.HttpClient
         .post<any>(posturl, params)
         .subscribe({
