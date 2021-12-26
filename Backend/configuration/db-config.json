@@ -4,6 +4,7 @@
     "databasePort": 28015,
     "databaseTables": [
         "admins",
-        "checkins"
+        "checkins",
+        "checkouts"
     ]
 }

@@ -1,5 +1,5 @@
-export interface CheckIn{
-    id: string,
+export interface CheckOut{
+    checkInID: string
     firstname: string,
     lastname: string,
     company: string,
@@ -8,5 +8,6 @@ export interface CheckIn{
     street: string,
     postalcode: string,
     city: string,
-    time: Date
+    checkInTime: Date,
+    checkOutTime: Date
 }

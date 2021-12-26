@@ -26,6 +26,7 @@ databaseService.initialize().then(() =>{
 
     app.listen(9999);
     logger.info("Server listening on port 9999");
-}).catch(() =>{
-    logger.error("Error while starting express server");
+}).catch((error ) =>{
+    console.log(error);
+    logger.error( "Error while starting express server");
 })

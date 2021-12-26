@@ -27,6 +27,10 @@ export class AdmincreateComponent implements OnInit {
     }
   }
 
+  public back(): void{
+    this.router.navigateByUrl('adminentries', {state: {"username": this.username, "password": this.password}});
+  }
+
   public sendCheckIn(firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string): void{
     const params = {
       firstname: firstname,

@@ -3,8 +3,6 @@ import { LoggerService } from "./logger.service";
 import { Connection, r, RConnectionOptions, RDatum } from 'rethinkdb-ts';
 import * as databaseConfiguration from '../../configuration/db-config.json';
 import { CheckIn } from "../../models/checkin.model";
-import { Admin } from "../../models/admin.model";
-import { AdminsController } from "../../api/events/admin.controller";
 
 
 @injectable()
@@ -209,6 +207,89 @@ export class DatabaseService{
         })
     }
     */
+
+    public createCheckOut(checkInID: string, firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string, checkInTime: Date): Promise<any>{
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table("checkouts")
+                 .filter({checkinID: checkInID})
+                 .isEmpty()
+                 .do((empty) => r.branch(
+                     empty,
+                     r.db(databaseConfiguration.databaseName)
+                      .table("checkouts").insert
+                      ({
+                            checkInID: checkInID,
+                            firstname: firstname,
+                            lastname: lastname,
+                            company: company,
+                            phonenumber: phonenumber,
+                            email: email,
+                            street: street,
+                            postalcode: postalcode,
+                            city: city,
+                            checkInTime: checkInTime,
+                            checkOutTime: Date.now()
+                      }),
+                     {alreadyCheckedOut: true}
+                 )).run(connection)
+                 .then((response) =>{
+                     this.loggerService.info("Responding to client after creating check-out.");
+                     resolve(response);
+                 }).catch((error) =>{
+                     this.loggerService.error("Error while creating checkout.");
+                     resolve(error);
+                 }).finally(() => {
+                    //TODO: Add saving of information in the database.
+                 });
+            })
+        });
+    }
+
+    public deleteCheckIn(id: string): Promise<CheckIn>{
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                .table("checkins")
+                .filter({id: id})
+                .count()
+                .eq(1)
+                .do((exists) => r.branch(
+                    exists,
+                    r.db(databaseConfiguration.databaseName)
+                    .table("checkins")
+                    .filter({id: id}).delete(),
+                    {"exists": false}
+                )).run(connection)
+                .then((response) => {
+                    resolve(response);
+                })
+            })
+        })
+    }
+
+    public getCheckInByID(id: string): Promise<CheckIn>{
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table("checkins")
+                 .filter({id: id})
+                 .count()
+                 .eq(1)
+                 .do((exists) => r.branch(
+                     exists,
+                     r.db(databaseConfiguration.databaseName)
+                     .table("checkins")
+                     .filter({id: id}),
+                     {exists: false}
+                 )).run(connection)
+                 .then((response) =>{
+                     resolve(response);
+                 })
+            })
+        })
+    }
 
     public loginAdmin(username: string, password: string): Promise<any>{
         this.loggerService.info("Trying to login user");

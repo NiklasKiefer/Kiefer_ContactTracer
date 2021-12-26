@@ -5,6 +5,7 @@ import { LoggerService } from '../services/logger.service';
 import { DatabaseService } from '../services/database.service';
 import { CheckInController } from '../../api/events/checkin.controller';
 import { AdminsController } from '../../api/events/admin.controller';
+import { CheckOutController } from '../../api/events/checkout.controller';
 
 export class IoContainer {
   private container = new Container();
@@ -26,6 +27,10 @@ export class IoContainer {
     this.container.bind<interfaces.Controller>(TYPE.Controller)
     .to(AdminsController)
     .whenTargetNamed(AdminsController.name);
+
+    this.container.bind<interfaces.Controller>(TYPE.Controller)
+    .to(CheckOutController)
+    .whenTargetNamed(CheckOutController.name);
   }
 
   private initServices(): void {
