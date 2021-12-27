@@ -22,6 +22,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AdminentriesComponent } from './components/adminentries/adminentries.component';
 import { AdmincreateComponent } from './components/admincreate/admincreate.component';
 import {MatTableModule} from '@angular/material/table';
+import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {MatTableModule} from '@angular/material/table';
     RegisterComponent,
     CheckininfoComponent,
     AdminentriesComponent,
-    AdmincreateComponent
+    AdmincreateComponent,
+    CheckoutinfoComponent
   ],
   imports: [
     BrowserModule,

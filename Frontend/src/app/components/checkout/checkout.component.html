@@ -1,1 +1,10 @@
-<p>checkout works!</p>
+<form>
+    <p class="mat-headline">You want to check-out?</p>
+    <p class="mat-h3">Enter your check-in id below.</p>
+    <mat-form-field color="primary" appearance="fill">
+        <mat-label>Check-in Code</mat-label>
+        <input matInput color="accent" #code required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="checkOutClicked(code.value)">Check-out</button>
+    <p class="mat-h4">{{errormsg}}</p>
+</form>
