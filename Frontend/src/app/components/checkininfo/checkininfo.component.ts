@@ -20,4 +20,8 @@ export class CheckininfoComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
   }
+
+  public goToCheckOut(id: string): void{
+    this.router.navigateByUrl('/checkout', {state: {"id": id}});
+  }
 }

@@ -5,6 +5,7 @@ import { AdminentriesComponent } from './components/adminentries/adminentries.co
 import { CheckinComponent } from './components/checkin/checkin.component';
 import { CheckininfoComponent } from './components/checkininfo/checkininfo.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'checkininfo', component: CheckininfoComponent},
   {path: 'adminentries', component: AdminentriesComponent},
   {path: 'admincreate', component: AdmincreateComponent},
+  {path: 'checkoutinfo', component: CheckoutinfoComponent},
   {path: '**', component: NotfoundComponent}
 ];
 

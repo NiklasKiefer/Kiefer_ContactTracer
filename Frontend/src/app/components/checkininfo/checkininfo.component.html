@@ -3,6 +3,6 @@
     <qrcode [qrdata]="id" [width]="200" [allowEmptyString]="true" [errorCorrectionLevel]="'M'" [elementType]="'svg'"></qrcode>
     <div class="mat-h3">Your id is: <p [innerText]="id"></p></div>
     <div id="checkoutdiv">
-        <a id="checkouttext" class="mat-h4" color="primary" routerLink="/checkout"><br>You can check-out here.</a>
+        <button mat-raised-button color="primary" (click)="goToCheckOut(id)">Check-out here </button>
     </div> 
 </div>

@@ -6,5 +6,5 @@
         <input matInput color="accent" #code required>
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="checkOutClicked(code.value)">Check-out</button>
-    <p class="mat-h4">{{errormsg}}</p>
+    <p id="error" class="mat-h4">{{errormsg}}</p>
 </form>

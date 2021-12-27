@@ -14,22 +14,23 @@ export class CheckoutComponent implements OnInit {
   constructor(private HttpClient: HttpClient, private router: Router, private LoggerService: LoggerService) { }
 
   errormsg: string = "";
+  id: string = "";
 
   ngOnInit(): void {
-  }
 
+  }
+  
   public checkOutClicked(id: string): void{
     const posturl = apiConfiguration.checkout + id;
         this.HttpClient
         .post<any>(posturl, {})
         .subscribe({
           next: (response: any) =>{
-            if("alreadyExists" in response){
-              this.errormsg = "Seems like you are already checked-in. Check-out before attempting another check-in."
+            if("exists" in response){
+              this.errormsg = "There was no check-in found with this id. Enter again.";
             }
             else{
-              const id = response.id;
-              this.router.navigateByUrl('checkininfo', {state: {"id": id}});
+              this.router.navigateByUrl('checkoutinfo', {state: {"id": id}});
             }
           },
           error: (error) => this.LoggerService.log("Error while http get to api-checkin."),
