@@ -4,5 +4,6 @@
     "login": "http://localhost:9999/admins/login/",
     "register": "http://localhost:9999/admins/register/",
     "admin": "http://localhost:9999/admins/",
-    "infos": "http://localhost:9999/admins/infos/"
+    "infos": "http://localhost:9999/admins/infos/",
+    "update": "http://localhost:9999/checkin/update/"
 }

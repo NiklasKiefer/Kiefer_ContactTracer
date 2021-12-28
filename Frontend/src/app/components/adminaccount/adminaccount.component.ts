@@ -57,7 +57,7 @@ export class AdminaccountComponent implements OnInit {
 
   public changeAdminData(firstname: string, lastname: string, email: string, newPassword: string){
     const posturl = apiConfiguration.infos + this.username +  "&" + this.password + "&" + firstname + "&" + lastname + "&" + email + "&" + newPassword
-      this.HttpClient
+    this.HttpClient
       .post(posturl, {})
       .subscribe({
         next: (response: any) =>{

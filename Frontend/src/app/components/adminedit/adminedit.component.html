@@ -6,46 +6,46 @@
     <div id="name">
         <mat-form-field color="primary" appearance="fill">
             <mat-label>First name</mat-label>
-            <input matInput color="accent" value="{{checkIn.firstname}}">
+            <input matInput color="accent" #firstname value="{{checkIn.firstname}}">
         </mat-form-field>
         <span></span>
         <mat-form-field color="primary" appearance="fill">
             <mat-label>Last name</mat-label>
-            <input matInput color="accent" value="{{checkIn.lastname}}">
+            <input matInput color="accent" #lastname value="{{checkIn.lastname}}">
         </mat-form-field>
     </div>
     <div id="company">
         <mat-form-field color="primary" appearance="fill">
             <mat-label>Company</mat-label>
-            <input matInput color="accent" value="{{checkIn.company}}">
+            <input matInput color="accent" #company value="{{checkIn.company}}">
         </mat-form-field>
     </div>
     <div id="contact">
         <mat-form-field color="primary" appearance="fill">
             <mat-label>Phone number</mat-label>
-            <input matInput color="accent" value="{{checkIn.phonenumber}}">
+            <input matInput color="accent" #phonenumber value="{{checkIn.phonenumber}}">
         </mat-form-field>
         <span></span>
         <mat-form-field color="primary" appearance="fill">
             <mat-label>E-Mail</mat-label>
-            <input matInput color="accent" value="{{checkIn.email}}">
+            <input matInput color="accent" #email value="{{checkIn.email}}">
         </mat-form-field>
     </div>
     <div id="address">
         <mat-form-field color="primary" appearance="fill">
             <mat-label>Street</mat-label>
-            <input matInput color="accent" value="{{checkIn.street}}">
+            <input matInput color="accent" #street value="{{checkIn.street}}">
         </mat-form-field>
         <span></span>
         <mat-form-field color="primary" appearance="fill">
             <mat-label>Postal code</mat-label>
-            <input matInput color="accent" value="{{checkIn.postalcode}}">
+            <input matInput color="accent" #postalcode value="{{checkIn.postalcode}}">
         </mat-form-field>
         <span></span>
         <mat-form-field color="primary" appearance="fill">
             <mat-label>City</mat-label>
-            <input matInput color="accent" value="{{checkIn.city}}">
+            <input matInput color="accent" #city value="{{checkIn.city}}">
         </mat-form-field>
     </div>
-    <button mat-raised-button color="primary" (click)="back()">Save</button>
+    <button mat-raised-button color="primary" (click)="updateCheckIn(this.username, this.password, checkIn.id, firstname.value, lastname.value, company.value, phonenumber.value, email.value, street.value, postalcode.value, city.value)">Save</button>
 </div>
