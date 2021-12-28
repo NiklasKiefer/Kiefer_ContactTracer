@@ -36,7 +36,7 @@ export class AdminsController implements interfaces.Controller{
         });
     }
 
-    @httpGet('/infos/:username&:password&:firstname&:lastname&:email&:newPassword')
+    @httpPost('/infos/:username&:password&:firstname&:lastname&:email&:newPassword')
     public changeAccountInfo(request: Request, response: Response): void{
         this.loggerService.info("User " + request.params.username + " requests a change of his information.");
         this.databaseService.changeAdminInfo(request.params.username, request.params.password, request.params.firstname, request.params.lastname, request.params.email, request.params.newPassword).then((result) =>{

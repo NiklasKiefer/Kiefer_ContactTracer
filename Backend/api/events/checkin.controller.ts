@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { controller, httpGet, httpPost, interfaces } from "inversify-express-utils";
+import { controller, httpGet, httpPost, httpPut, interfaces } from "inversify-express-utils";
 import { DatabaseService } from "../../core/services/database.service";
 import {Request, Response } from "express";
 import { LoggerService } from "../../core/services/logger.service";
@@ -37,24 +37,8 @@ export class CheckInController implements interfaces.Controller{
         });
     }
 
-    /*
-    @httpPost('/adminadd/:username&:password&:firstname&:lastname&:company&:phonenumber&:email&:street&:postalcode&:city&:time')
-    public addCheckInAdmin(request: Request, response: Response): void{
-        let username = request.params.username;
-        let password = request.params.password;
-        let firstname = request.params.firstname;
-        let lastname = request.params.lastname;
-        let company = request.params.company;
-        let phonenumber = request.params.phonenumber;
-        let email = request.params.email;
-        let street = request.params.street;
-        let postalcode = request.params.postalcode;
-        let city = request.params.city;
-        let time = request.params.time
+    @httpPut('/:username')
+    public updateCheckIn(request: Request, response: Response): void{
 
-        this.databaseService.addCheckInAdmin(username, password, firstname, lastname, company, phonenumber, email, street, postalcode, city, time).then((result) =>{
-            response.json(result);
-        });
     }
-    */
 }

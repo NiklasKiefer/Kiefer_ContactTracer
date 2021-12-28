@@ -56,9 +56,9 @@ export class AdminaccountComponent implements OnInit {
   }
 
   public changeAdminData(firstname: string, lastname: string, email: string, newPassword: string){
-    const geturl = apiConfiguration.infos + this.username +  "&" + this.password + "&" + firstname + "&" + lastname + "&" + email + "&" + newPassword
+    const posturl = apiConfiguration.infos + this.username +  "&" + this.password + "&" + firstname + "&" + lastname + "&" + email + "&" + newPassword
       this.HttpClient
-      .get(geturl, {})
+      .post(posturl, {})
       .subscribe({
         next: (response: any) =>{
           if ("validUser" in response){
