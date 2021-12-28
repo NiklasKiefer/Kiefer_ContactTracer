@@ -3,6 +3,7 @@ import { LoggerService } from "./logger.service";
 import { Connection, r, RConnectionOptions, RDatum } from 'rethinkdb-ts';
 import * as databaseConfiguration from '../../configuration/db-config.json';
 import { CheckIn } from "../../models/checkin.model";
+import { stringify } from "querystring";
 
 
 @injectable()
@@ -38,6 +39,25 @@ export class DatabaseService{
         });
     }
 
+    public saveInteraction(userID: string, description: string): Promise<any>{
+        this.loggerService.info("Following interaction will be saved: " + description);
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table("interactions")
+                 .insert(
+                 {
+                    userID: userID,
+                    description: description,
+                    time: Date.now()
+                 }).run(connection)
+                 .then((response) =>{
+                    resolve(response);
+                 })
+            })
+        })
+    }
+
     public getAllCheckIns(username: string, password: string): Promise<Array<CheckIn>>{
         this.loggerService.info("User " + username + " requests to get the list of all current check-ins entries.");
         return new Promise((resolve, reject) => {
@@ -65,12 +85,16 @@ export class DatabaseService{
                  .catch((error) =>{
                      this.loggerService.error(error, "Error while getting all check-in entries for user " + username + ".");
                  })
+                 .finally(() =>{
+                    this.saveInteraction(username, "Admin requested all entries.");
+                 })
             })
         });
     }
 
     public checkIn(firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string): Promise<any>{
         this.loggerService.info("Saving new checkin: " + firstname + " " + lastname + " " + company + " " + phonenumber + " " + email + " " + street + " " + postalcode + " " + city);
+        let id = "";
         return new Promise((resolve, reject) =>{
             this.connect().then((connection: Connection) =>{
                 r.db(databaseConfiguration.databaseName)
@@ -114,7 +138,9 @@ export class DatabaseService{
                   }).catch((error) => { 
                     this.loggerService.error(error, "Error while saving new checkin.");
                     reject(error);
-                });
+                }).finally(() =>{
+                    this.saveInteraction(id, "User checked-in.");
+                })
             });
         });
     }
@@ -151,62 +177,12 @@ export class DatabaseService{
                  }).catch((error) => { 
                      this.loggerService.error(error, "Error while saving new admin account.");
                      reject(error);
-                 });
+                 }).finally(() =>{
+                    this.saveInteraction(username, "Admin registered.");
+                 })
             });
         });
     }
-
-    /*
-    public addCheckInAdmin(username: string, password: string, firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string, time: number): Promise<any>{
-        this.loggerService.info("User " + username + " wants to add new check-in information");
-        return new Promise((resolve, reject) => {
-            this.connect().then((connection: Connection) =>{
-                r.db(databaseConfiguration.databaseName)
-                 .table("admins")
-                 .filter({username: username, password: password})
-                 .count()
-                 .eq(1)
-                 .do((adminExists) => r.branch(
-                    adminExists,
-                    r.db(databaseConfiguration.databaseName)
-                     .table("checkin")
-                     .filter({firstname: firstname, 
-                              lastname: lastname,
-                              company: company,
-                              phonenumber: phonenumber,
-                              email: email,
-                              street: street,
-                              postalcode: postalcode,
-                              city: city})
-                     .isEmpty()
-                     .do((checkinExists) =>{
-                         r.db(databaseConfiguration.databaseName)
-                          .table("checkin")
-                          .insert({
-                              firstname: firstname,
-                              lastname: lastname,
-                              company: company,
-                              phonenumber: phonenumber,
-                              email: email,
-                              street: street,
-                              postalcode: postalcode,
-                              city: city,
-                              time: time
-                          })
-                     }),
-                    {validUser: false}
-                 )).run(connection)
-                 .then((response) =>{
-                     this.loggerService.info("Responding to admin after creating new entry.");
-                     resolve(response);
-                 })
-                 .catch((error) =>{
-                     this.loggerService.error(error, "Error while creating new entry for admin " + username)
-                 })
-            })
-        })
-    }
-    */
 
     public createCheckOut(checkInID: string, firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string, checkInTime: Date): Promise<any>{
         return new Promise((resolve, reject) =>{
@@ -241,7 +217,7 @@ export class DatabaseService{
                      this.loggerService.error("Error while creating checkout.");
                      resolve(error);
                  }).finally(() => {
-                    //TODO: Add saving of information in the database.
+                    this.saveInteraction(checkInID, "User checked-out.");
                  });
             })
         });
@@ -308,6 +284,8 @@ export class DatabaseService{
                  .then((response) =>{
                     this.loggerService.info("Responding login status to client.");
                     resolve(response);
+                 }).finally(() =>{
+                    this.saveInteraction(username, "Admin logged in.");
                  })
             });
         });

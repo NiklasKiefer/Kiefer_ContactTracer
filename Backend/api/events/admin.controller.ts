@@ -24,6 +24,7 @@ export class AdminsController implements interfaces.Controller{
     public loginAdmin(request: Request, response: Response): void{
         this.loggerService.info("User " + request.params.username + " tries to login");
         this.databaseService.loginAdmin(request.params.username, request.params.password).then((result) =>{
+            
             response.json(result);
         })
     }

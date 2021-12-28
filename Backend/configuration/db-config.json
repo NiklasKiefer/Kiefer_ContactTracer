@@ -5,6 +5,7 @@
     "databaseTables": [
         "admins",
         "checkins",
-        "checkouts"
+        "checkouts",
+        "interactions"
     ]
 }
