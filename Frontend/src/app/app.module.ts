@@ -23,6 +23,8 @@ import { AdminentriesComponent } from './components/adminentries/adminentries.co
 import { AdmincreateComponent } from './components/admincreate/admincreate.component';
 import {MatTableModule} from '@angular/material/table';
 import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.component';
+import { AdminaccountComponent, ChangeDialog } from './components/adminaccount/adminaccount.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.co
     CheckininfoComponent,
     AdminentriesComponent,
     AdmincreateComponent,
-    CheckoutinfoComponent
+    CheckoutinfoComponent,
+    AdminaccountComponent,
+    ChangeDialog
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.co
     HttpClientModule,
     FormsModule,
     QRCodeModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

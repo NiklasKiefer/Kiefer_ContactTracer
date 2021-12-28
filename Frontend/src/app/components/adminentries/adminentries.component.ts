@@ -39,8 +39,6 @@ export class AdminentriesComponent implements OnInit {
           }
           else{
             this.checkIns = response;
-
-            console.log(this.checkIns);
           }
         },
         error: (error) => this.LoggerService.log("Error while http get to api-checkin."),
@@ -57,4 +55,7 @@ export class AdminentriesComponent implements OnInit {
     this.router.navigateByUrl('admincreate', {state: {"username": this.username, "password": this.password}});
   }
 
+  public accountButtonClicked(): void{
+    this.router.navigateByUrl('adminaccount', {state: {"username": this.username, "password": this.password}});
+  }
 }

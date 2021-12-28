@@ -58,6 +58,83 @@ export class DatabaseService{
         })
     }
 
+    public getAdminInfos(username: string, password: string): Promise<any>{
+        return new Promise((resolve, resject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table('admins')
+                 .filter({
+                     username: username,
+                     password: password
+                 })
+                 .count()
+                 .eq(1)
+                 .do((exists) => r.branch(
+                     exists,
+                     r.db(databaseConfiguration.databaseName)
+                      .table('admins')
+                      .filter({
+                          username: username,
+                          password: password
+                      }),
+                      {validUser: false}
+                 )).run(connection)
+                 .then((response) =>{
+                     this.loggerService.info("Responding to admin " + username + " with his information");
+                     resolve(response);
+                 })
+                 .catch((error) =>{
+                     this.loggerService.error("Error while getting admin infos for user " + username);
+                 })
+                 .finally(() =>{
+                    this.saveInteraction(username, "Admin requested his information.");
+                 })
+            })
+        })
+    }
+
+    public changeAdminInfo(username: string, password: string, firstname: string, lastname: string, email: string, newPassword: string): Promise<any>{
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table('admins')
+                 .filter({
+                     username: username,
+                     password: password
+                 })
+                 .count()
+                 .eq(1)
+                 .do((exists) => r.branch(
+                     exists,
+                     r.db(databaseConfiguration.databaseName)
+                      .table("admins")
+                      .filter({
+                          username: username,
+                          password: password
+                      })
+                      .update({
+                          password: newPassword,
+                          firstname: firstname,
+                          lastname: lastname,
+                          email: email
+                      }),
+                      {validUser: false}
+                 )).run(connection)
+                 .then((response) =>{
+                     this.loggerService.info("Answering admin, that his information was updated.");
+                     resolve(response);
+                 })
+                 .catch((error) =>{
+                     this.loggerService.info("Error while updating admin information");
+                     reject(error);
+                 })
+                 .finally(() =>{
+                    this.saveInteraction(username, "Admin updated his information.");
+                 })
+            })
+        })
+    }
+
     public getAllCheckIns(username: string, password: string): Promise<Array<CheckIn>>{
         this.loggerService.info("User " + username + " requests to get the list of all current check-ins entries.");
         return new Promise((resolve, reject) => {

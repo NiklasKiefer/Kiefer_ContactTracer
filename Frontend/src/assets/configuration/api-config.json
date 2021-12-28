@@ -2,5 +2,7 @@
     "checkin": "http://localhost:9999/checkin/",
     "checkout": "http://localhost:9999/checkout/",
     "login": "http://localhost:9999/admins/login/",
-    "register": "http://localhost:9999/admins/register/"
+    "register": "http://localhost:9999/admins/register/",
+    "admin": "http://localhost:9999/admins/",
+    "infos": "http://localhost:9999/admins/infos/"
 }
