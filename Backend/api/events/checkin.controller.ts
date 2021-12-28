@@ -37,8 +37,22 @@ export class CheckInController implements interfaces.Controller{
         });
     }
 
-    @httpPut('/:username')
+    @httpPut('/update/:username&:password&:checkInID&:firstname&:lastname&:company&:phonenumber&:email&:street&:postalcode&:city')
     public updateCheckIn(request: Request, response: Response): void{
+        let username = request.params.username;
+        let password = request.params.password;
+        let checkInID = request.params.checkInID;
+        let firstname = request.params.firstname;
+        let lastname = request.params.lastname;
+        let company = request.params.company;
+        let phonenumber = request.params.phonenumber;
+        let email = request.params.email;
+        let street = request.params.street;
+        let postalcode = request.params.postalcode;
+        let city = request.params.city;
 
+        this.databaseService.updateCheckIn(username, password, checkInID, firstname, lastname, company, phonenumber, email, street, postalcode, city).then((result) =>{
+            response.json(result);
+        })
     }
 }

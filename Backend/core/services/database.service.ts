@@ -222,6 +222,47 @@ export class DatabaseService{
         });
     }
 
+    public updateCheckIn(username: string, password: string, id: string, firstname: string, lastname: string, company: string, phonenumber: string, email: string, street: string, postalcode: string, city: string): Promise<any>{
+        this.loggerService.info("User " + username + " wants to update information of check-in with id " + id);
+        return new Promise((resolve, reject) =>{
+            this.connect().then((connection: Connection) =>{
+                r.db(databaseConfiguration.databaseName)
+                 .table('admins')
+                 .filter({username: username, password: password})
+                 .count()
+                 .eq(1)
+                 .do((exists) => r.branch(
+                     exists,
+                     r.db(databaseConfiguration.databaseName)
+                      .table('checkins')
+                      .filter({id: id})
+                      .update({
+                          firstname: firstname,
+                          lastname: lastname,
+                          company: company,
+                          phonenumber: phonenumber,
+                          email: email,
+                          street: street,
+                          postalcode: postalcode,
+                          city: city
+                      }),
+                     {"validUser": false}
+                 )).run(connection)
+                 .then((response) =>{
+                     this.loggerService.info("Answering admin after updating information.");
+                    resolve(response);
+                 })
+                 .catch((error) =>{
+                     this.loggerService.error("Error while updating check-in information for id:" + id);
+                     reject(error);
+                 })
+                 .finally(() =>{
+                    this.saveInteraction(username, "Admin updated check-in information for id " + id);
+                 })
+            })
+        })
+    }
+
     public registerAdmin(firstname: string, lastname: string,  username: string, email: string, password: string): Promise<any>{
         this.loggerService.info("Starting to register new admin with username " + username + " and password " + password);
         return new Promise((resolve, reject) =>{
