@@ -25,6 +25,7 @@ import {MatTableModule} from '@angular/material/table';
 import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.component';
 import { AdminaccountComponent, ChangeDialog } from './components/adminaccount/adminaccount.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AdmineditComponent } from './components/adminedit/adminedit.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AdmincreateComponent,
     CheckoutinfoComponent,
     AdminaccountComponent,
-    ChangeDialog
+    ChangeDialog,
+    AdmineditComponent
   ],
   imports: [
     BrowserModule,

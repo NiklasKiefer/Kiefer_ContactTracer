@@ -15,7 +15,7 @@ export class AdminentriesComponent implements OnInit {
   private username = "";
   private password = "";
   public checkIns: Array<CheckIn> = new Array<CheckIn>();
-  public properties: string[] = ["id", "firstname", "lastname", "company", "phonenumber", "email", "street", "postalcode", "city", "time"];
+  public properties: string[] = ["id", "firstname", "lastname", "company", "phonenumber", "email", "street", "postalcode", "city", "time", "edit"];
 
   constructor(private LoggerService: LoggerService, private router: Router, private HttpClient: HttpClient) { }
 
@@ -57,5 +57,9 @@ export class AdminentriesComponent implements OnInit {
 
   public accountButtonClicked(): void{
     this.router.navigateByUrl('adminaccount', {state: {"username": this.username, "password": this.password}});
+  }
+
+  public editCheckIn(checkIn: CheckIn): void{
+    this.router.navigateByUrl('adminedit', {state: {"username": this.username, "password": this.password, "checkIn": checkIn}});
   }
 }
