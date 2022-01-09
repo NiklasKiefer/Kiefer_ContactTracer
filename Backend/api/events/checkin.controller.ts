@@ -23,8 +23,7 @@ export class CheckInController implements interfaces.Controller{
         let postalcode = request.params.postalcode ;
         let city = request.params.city;
         this.databaseService.checkIn(firstname, secondname, company, phonenumber, email, street, postalcode, city).then((result) =>{
-
-            response.json(result);
+            response.status(200).json(result);
         });
     }
 
@@ -33,7 +32,7 @@ export class CheckInController implements interfaces.Controller{
         let username = request.params.username;
         let password = request.params.password;
         this.databaseService.getAllCheckIns(username, password).then((result) =>{
-            response.json(result);
+            response.status(200).json(result);
         });
     }
 
@@ -52,7 +51,7 @@ export class CheckInController implements interfaces.Controller{
         let city = request.params.city;
 
         this.databaseService.updateCheckIn(username, password, checkInID, firstname, lastname, company, phonenumber, email, street, postalcode, city).then((result) =>{
-            response.json(result);
+            response.status(200).json(result);
         })
     }
 }

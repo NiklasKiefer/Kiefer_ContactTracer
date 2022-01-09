@@ -18,7 +18,7 @@ export class CheckOutController implements interfaces.Controller{
         this.databaseService.getCheckInByID(id).then((result) =>{
             if ("exists" in result){
                 console.log("Responding to client, that there was no entry with this id.")
-                response.json(result);
+                response.status(200).json(result);
             }
             else{
                 let entry: CheckIn = result[0];
@@ -26,7 +26,7 @@ export class CheckOutController implements interfaces.Controller{
                     console.log("deleted checkin with id " + entry.id);
                     this.databaseService.createCheckOut(entry.id, entry.firstname, entry.lastname, entry.company, entry.phonenumber, entry.email, entry.street, entry.postalcode, entry.street, entry.time).then((result) =>{
                         console.log("Responding to client, that the check-out was successful.");
-                        response.json(result);
+                        response.status(200).json(result);
                     });
                 });
             }

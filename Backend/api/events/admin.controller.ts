@@ -16,7 +16,7 @@ export class AdminsController implements interfaces.Controller{
     public registerAdmin(request: Request, response: Response): void{
         this.databaseService.registerAdmin(request.params.firstname, request.params.lastname, request.params.email, request.params.username, request.params.password).then((result) =>{    
             this.loggerService.info("Sending result from database service to client.");
-            response.json(result);
+            response.status(200).json(result);
         })
     }
 
@@ -24,7 +24,7 @@ export class AdminsController implements interfaces.Controller{
     public loginAdmin(request: Request, response: Response): void{
         this.loggerService.info("User " + request.params.username + " tries to login");
         this.databaseService.loginAdmin(request.params.username, request.params.password).then((result) =>{
-            response.json(result);
+            response.status(200).json(result);
         })
     }
 
@@ -32,7 +32,7 @@ export class AdminsController implements interfaces.Controller{
     public getAccountInfos(request: Request, response: Response): void{
         this.loggerService.info("User " + request.params.username + " requests admin information.");
         this.databaseService.getAdminInfos(request.params.username, request.params.password).then((result) =>{
-            response.json(result);
+            response.status(200).json(result);
         });
     }
 
@@ -40,7 +40,7 @@ export class AdminsController implements interfaces.Controller{
     public changeAccountInfo(request: Request, response: Response): void{
         this.loggerService.info("User " + request.params.username + " requests a change of his information.");
         this.databaseService.changeAdminInfo(request.params.username, request.params.password, request.params.firstname, request.params.lastname, request.params.email, request.params.newPassword).then((result) =>{
-            response.json(result);
+            response.status(200).json(result);
         })
     }
 }
