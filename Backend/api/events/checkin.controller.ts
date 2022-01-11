@@ -5,7 +5,7 @@ import {Request, Response } from "express";
 import { LoggerService } from "../../core/services/logger.service";
 
 
-@controller('/checkin')
+@controller('/v1/checkin')
 @injectable()
 export class CheckInController implements interfaces.Controller{
     constructor(@inject(DatabaseService.name) private databaseService: DatabaseService) {
@@ -36,7 +36,7 @@ export class CheckInController implements interfaces.Controller{
         });
     }
 
-    @httpPut('/update/:username&:password&:checkInID&:firstname&:lastname&:company&:phonenumber&:email&:street&:postalcode&:city')
+    @httpPut('/:username&:password&:checkInID&:firstname&:lastname&:company&:phonenumber&:email&:street&:postalcode&:city')
     public updateCheckIn(request: Request, response: Response): void{
         let username = request.params.username;
         let password = request.params.password;

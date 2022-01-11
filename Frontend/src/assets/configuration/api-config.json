@@ -1,9 +1,9 @@
 {
-    "checkin": "http://localhost:9999/checkin/",
-    "checkout": "http://localhost:9999/checkout/",
-    "login": "http://localhost:9999/admins/login/",
-    "register": "http://localhost:9999/admins/register/",
-    "admin": "http://localhost:9999/admins/",
-    "infos": "http://localhost:9999/admins/infos/",
-    "update": "http://localhost:9999/checkin/update/"
+    "checkin": "http://localhost:9999/v1/checkin/",
+    "checkout": "http://localhost:9999/v1/checkout/",
+    "login": "http://localhost:9999/v1/admins/user/",
+    "register": "http://localhost:9999/v1/admins/user/",
+    "admin": "http://localhost:9999/v1/admins/user/info/",
+    "infos": "http://localhost:9999/v1/admins/user/info/",
+    "update": "http://localhost:9999/v1/checkin/"
 }
