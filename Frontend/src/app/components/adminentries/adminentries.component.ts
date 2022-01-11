@@ -15,7 +15,7 @@ export class AdminentriesComponent implements OnInit {
   private username = "";
   private password = "";
   public checkIns: Array<CheckIn> = new Array<CheckIn>();
-  public properties: string[] = ["id", "firstname", "lastname", "company", "phonenumber", "email", "street", "postalcode", "city", "time", "edit"];
+  public properties: string[] = ["id", "firstname", "lastname", "company", "phonenumber", "email", "street", "postalcode", "city", "time", "edit", "delete"];
 
   constructor(private LoggerService: LoggerService, private router: Router, private HttpClient: HttpClient) { }
 
@@ -41,8 +41,8 @@ export class AdminentriesComponent implements OnInit {
             this.checkIns = response;
           }
         },
-        error: (error) => this.LoggerService.log("Error while http get to api-checkin."),
-        complete: () => this.LoggerService.log("complete")
+        error: (error) => console.log("Error while http get to api-checkin."),
+        complete: () => console.log("complete")
       });
     }
   }
@@ -61,5 +61,10 @@ export class AdminentriesComponent implements OnInit {
 
   public editCheckIn(checkIn: CheckIn): void{
     this.router.navigateByUrl('adminedit', {state: {"username": this.username, "password": this.password, "checkIn": checkIn}});
+  }
+
+  public deleteCheckIn(checkIn: CheckIn): void{
+    console.log(checkIn);
+    this.router.navigateByUrl("admindelete", {state: {"username": this.username, "password": this.password, "checkInID": checkIn.id}});
   }
 }

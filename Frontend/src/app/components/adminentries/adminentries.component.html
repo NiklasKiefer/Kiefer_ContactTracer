@@ -58,6 +58,11 @@
         <td mat-cell *matCellDef="let element"><button mat-raised-button (click)="editCheckIn(element)" color="primary">Edit</button></td>
     </ng-container>
 
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let element"><button mat-raised-button (click)="deleteCheckIn(element)" color="primary">Delete</button></td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="properties"></tr>
     <tr mat-row *matRowDef="let row; columns: properties;"></tr>
 </table>  

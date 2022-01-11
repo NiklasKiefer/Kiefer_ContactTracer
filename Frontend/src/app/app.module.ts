@@ -26,6 +26,7 @@ import { CheckoutinfoComponent } from './components/checkoutinfo/checkoutinfo.co
 import { AdminaccountComponent, ChangeDialog } from './components/adminaccount/adminaccount.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AdmineditComponent } from './components/adminedit/adminedit.component';
+import { AdmindeleteComponent } from './admindelete/admindelete.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AdmineditComponent } from './components/adminedit/adminedit.component';
     CheckoutinfoComponent,
     AdminaccountComponent,
     ChangeDialog,
-    AdmineditComponent
+    AdmineditComponent,
+    AdmindeleteComponent
   ],
   imports: [
     BrowserModule,

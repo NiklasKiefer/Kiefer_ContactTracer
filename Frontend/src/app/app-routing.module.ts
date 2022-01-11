@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdmindeleteComponent } from './admindelete/admindelete.component';
 import { AdminaccountComponent } from './components/adminaccount/adminaccount.component';
 import { AdmincreateComponent } from './components/admincreate/admincreate.component';
 import { AdmineditComponent } from './components/adminedit/adminedit.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'checkoutinfo', component: CheckoutinfoComponent},
   {path: 'adminaccount', component: AdminaccountComponent},
   {path: 'adminedit', component: AdmineditComponent},
+  {path: 'admindelete', component: AdmindeleteComponent},
   {path: '**', component: NotfoundComponent}
 ];
 
