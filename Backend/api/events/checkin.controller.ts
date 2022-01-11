@@ -5,7 +5,7 @@ import {Request, Response } from "express";
 import { LoggerService } from "../../core/services/logger.service";
 
 
-@controller('/checkin')
+@controller('/v1/checkin')
 @injectable()
 export class CheckInController implements interfaces.Controller{
     constructor(@inject(DatabaseService.name) private databaseService: DatabaseService) {

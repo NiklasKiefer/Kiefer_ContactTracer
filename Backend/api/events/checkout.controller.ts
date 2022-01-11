@@ -5,7 +5,7 @@ import {Request, Response } from "express";
 import { CheckIn } from "../../models/checkin.model";
 
 
-@controller('/checkout')
+@controller('/v1/checkout')
 @injectable()
 export class CheckOutController implements interfaces.Controller{
     constructor(@inject(DatabaseService.name) private databaseService: DatabaseService) {
